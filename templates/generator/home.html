@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bulk Certificate Generator</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <main class="shell">
+    <nav class="topbar"><div class="brand"><span class="brand-mark">C</span> Certify</div><span class="top-note">BULK CERTIFICATE STUDIO</span></nav>
+    <section class="hero">
+      <div class="eyebrow">AUTOMATE THE CELEBRATION</div>
+      <h1>Every achievement<br><span>deserves recognition.</span></h1>
+      <p>Turn a participant spreadsheet and your certificate design into a complete batch of personalized certificates.</p>
+    </section>
+    <section class="panel">
+      <div class="panel-heading"><div><div class="step">WORKSPACE / NEW BATCH</div><h2>Create certificates</h2></div><div class="number">01</div></div>
+      {% if form.non_field_errors %}<div class="error">{{ form.non_field_errors }}</div>{% endif %}
+      <form method="post" action="{% url 'generate' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="upload-grid">
+          <label class="upload-card" for="{{ form.template.id_for_label }}">
+            <span class="upload-icon">▧</span><strong>Certificate template</strong><small>PNG or JPG background</small>{{ form.template }}
+            {% if form.template.errors %}<em>{{ form.template.errors }}</em>{% endif %}
+          </label>
+          <label class="upload-card" for="{{ form.participants.id_for_label }}">
+            <span class="upload-icon">▤</span><strong>Participant CSV</strong><small>Spreadsheet with a name column</small>{{ form.participants }}
+            {% if form.participants.errors %}<em>{{ form.participants.errors }}</em>{% endif %}
+          </label>
+        </div>
+        <div class="section-label">NAME PLACEMENT</div>
+        <div class="fields three">
+          <div>{{ form.name_x.label_tag }}{{ form.name_x }}{{ form.name_x.errors }}</div>
+          <div>{{ form.name_y.label_tag }}{{ form.name_y }}{{ form.name_y.errors }}</div>
+          <div>{{ form.font_size.label_tag }}{{ form.font_size }}{{ form.font_size.errors }}</div>
+        </div>
+        <div class="fields two">
+          <div>{{ form.text_color.label_tag }}{{ form.text_color }}{{ form.text_color.errors }}</div>
+          <div>{{ form.font_file.label_tag }}{{ form.font_file }}{{ form.font_file.help_text }}{{ form.font_file.errors }}</div>
+        </div>
+        <div class="section-label">OPTIONAL PERSONALIZATION</div>
+        <div class="fields"><div>{{ form.extra_fields.label_tag }}{{ form.extra_fields }}<small>{{ form.extra_fields.help_text }}</small>{{ form.extra_fields.errors }}</div></div>
+        <button class="primary" type="submit">Generate certificates <span>→</span></button>
+        <p class="privacy">Your files are processed by this app to create the batch download.</p>
+      </form>
+    </section>
+    <footer>BUILT FOR WORKSHOPS · COLLEGE EVENTS · COMMUNITY PROGRAMS</footer>
+  </main>
+</body>
+</html>

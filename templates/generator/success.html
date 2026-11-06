@@ -1,0 +1,18 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Certificates ready</title><link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body><main class="shell">
+  <nav class="topbar"><div class="brand"><span class="brand-mark">C</span> Certify</div><span class="top-note">BATCH COMPLETE</span></nav>
+  <section class="success-card">
+    <div class="success-icon">✓</div><div class="eyebrow">YOUR BATCH IS READY</div>
+    <h1>Certificates,<br><span>all wrapped up.</span></h1>
+    <p class="count">{{ count }} personalized certificate{{ count|pluralize }} generated successfully.</p>
+    <a class="primary download" href="{% url 'download_batch' batch_id=batch_id %}">Download ZIP <span>↓</span></a>
+    <a class="back" href="{% url 'home' %}">← Create another batch</a>
+  </section>
+  <footer>BUILT FOR WORKSHOPS · COLLEGE EVENTS · COMMUNITY PROGRAMS</footer>
+</main></body></html>
